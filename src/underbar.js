@@ -448,6 +448,26 @@
   // Example:
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
   _.zip = function() {
+    var args = Array.prototype.slice.call(arguments);
+    var zippedArray = [];
+    var maxLength = 0;
+    for (var i = 0; i < args.length; i++) {
+      if (args[i].length > maxLength) {
+        maxLength = args[i].length;
+      }
+    }
+
+    for (var i = 0; i < args.length; i++) {
+      zippedArray.push([]);
+      for (var j = 0; j < maxLength; j++) {
+        if (args[i][j] !== undefined) {
+          zippedArray[i].push(args[j][i]);
+        } else {
+          zippedArray[i].push(undefined);
+        }
+      }
+    }
+    return zippedArray;
   };
 
   // Takes an arbitrary number of arrays and produces an array that contains
